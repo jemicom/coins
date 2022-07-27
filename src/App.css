@@ -7,6 +7,11 @@
   pointer-events: none;
 }
 
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -35,4 +40,41 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.faqsContainer{
+  width: 500px;
+  margin: 100px auto;
+}
+
+.faqTitle{
+  height: 40px;
+  background-color :#efefef;
+  line-height: 40px;
+  text-indent: 12px;
+}
+
+.faqActive{
+  height: 40px;
+  background-color:#666;
+  color:white;
+  line-height: 40px;
+  text-indent: 12px;
+}
+
+.faqContent{
+  padding: 0px; 
+  height: 0;
+  overflow: hidden;
+  transition: 1s;
+  position: relative;
+}
+.faqContentActive{
+  padding: 0px; 
+  height: 100px;
+  overflow: hidden;
+  border : 1px solid #efefef; 
+  box-sizing: border-box;
+  transition: 1s;
+  position: relative;
 }
