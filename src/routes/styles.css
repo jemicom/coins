@@ -1,0 +1,87 @@
+.section {
+
+    padding: 50px 0;
+    width: 1200px;
+    margin: auto;
+}
+
+.home-container {
+    width: 1000px;
+    margin: auto;
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+    height: 90px;
+}
+
+.home-container li {
+    list-style: none;
+}
+
+.home-container img {
+    width: 130px;
+}
+
+.homeLink {
+    display: block;
+    text-decoration: none;
+    width: 200px;
+    line-height: 50px;
+    background-color: antiquewhite;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.coinDetail-box {
+    width: 500px;
+    height: 500px;
+    padding: 50px;
+}
+
+.coinList-container {
+    display: flex;
+    width: 100%;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+.coinList-container>div {
+    width: 240px;
+    height: 300px;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+.coinList-container img {
+    width: 130px;
+}
+
+.about-container {
+    width: 1200px;
+    margin: auto;
+}
+
+.about-box {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.about-box-design {
+    width: 300px;
+    height: 120px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(116, 116, 116);
+    position: relative;
+    overflow: hidden;
+    margin: 20px;
+}
+
+.about-box-design>img {
+    width: 344px;
+    position: absolute;
+    left: 50px;
+    top: 35px;
+}

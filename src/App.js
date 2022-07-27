@@ -1,51 +1,89 @@
-import React from 'react'
-import Header from './Header';
-import Nav from './Nav';
-import Footer from './Footer';
-import Home from './Home';
-import NewPost from './NewPost';
-import PostPage from './PostPage';
-import About from './About';
-import Missing from './Missing';
-// import도 이동 
-// 모든 state와 handler 를 context로 이동 
-// props도 지우기
-import { BrowserRouter , Routes,  Route  } from 'react-router-dom';
-import './App.css'
-// https://reactrouter.com/docs/en/v6/hooks/use-navigate
-// https://curryyou.tistory.com/476
-// https://velog.io/@sham/react-router-dom-v6%EB%A1%9C-%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%9D%B4%EB%8F%99%ED%95%98%EA%B8%B0
-import { DataProvider } from './context/DataContext'
-// export는 DataContext이지만 그 내부의 DataProvider 사용 
+import React, {useState, useEffect} from 'react'
+import { BrowserRouter,  Routes, Route} from 'react-router-dom'
+import Header from './components/Header';
+import Footer from './components/Footer'; 
+import Home from './routes/Home'; 
+import About from './routes/About'; 
+import Lists from './routes/Lists'; 
+import Details from './routes/Details'; 
+import Missing from './routes/Missing'; 
+
+
+
+const URL = "https://api.coinpaprika.com/v1/tickers";
+
 
 const App = () => {
-  
+    const [coins, setCoins] = useState([]);
+    // const conins = [];
+    const [loading , setLoading] = useState(true);
+    const [selectCoin , setSelectCoin] = useState("");
+
+    
+
+    const cointracker = ()=>{
+        fetch(URL)
+        .then( data=> data.json())
+        .then( data=>{
+            console.log(data);
+            // coins = data; 
+            setCoins(data); 
+            // 연습할 때는 버벅거리지 않도록  상위 100 개 정보만 가져올 것임 
+            setLoading( false );
+        })
+    }
+
+     useEffect(()=>{
+        cointracker();
+        // 마운트 : 맨처음 화면이 로드될때 한 번 만 불러오기 
+    }, [])
+
+
+    const selectHandle = (e)=>{
+        console.log(e.target.value);
+        let value = e.target.value;
+        const findCoin = coins.find(coin=>coin.symbol === value ? coin : '' );
+        console.log(findCoin);
+        setSelectCoin( findCoin );
+    }
+
   return (
     <BrowserRouter>
-        <div className="App">
-          <Header title="점포개설 정보" />
-            <DataProvider>
-              <Nav  />
-              <Routes >
-                <Route path="/"  element={<Home  />} />
-                <Route path="/post/:id" element={ 
-                    <PostPage /> 
-                } />
-                {/* http://localhost:3000/post/1 */}
-                {/* http://localhost:3000/post/없는번호확인 */}
-
-                <Route path="/post" element={ 
-                    <NewPost  /> 
-                }  />
-
-                <Route path="/about" element={ <About /> } />
-                {/* http://localhost:3000/about */}
-                <Route path="/*" element={ <Missing /> } />
-                {/* http://localhost:3000/아무거나 */}
-              </Routes>
-            </DataProvider>
-          <Footer />
-        </div>
+      <div>
+            <Header title={"CoinTracker"} />
+            <Routes>
+                <Route path="/" element={
+                    <Home coins={coins}  
+                          loading={loading}  
+                          selectHandle={selectHandle}   
+                          selectCoin={selectCoin} 
+                    />} 
+                />
+                <Route path="/Home" element={
+                    <Home coins={coins}  
+                            loading={loading}  
+                            selectHandle={selectHandle}   
+                            selectCoin={selectCoin} 
+                        />} 
+                />
+                <Route path="/Lists" element={
+                      <Lists    
+                            loading={loading}   
+                            coins={coins} 
+                            selectCoin={selectCoin} 
+                            setSelectCoin={setSelectCoin}
+                            
+                      />} 
+                />
+                <Route path="/About" element={<About />} />
+                <Route path="/Details" element={
+                    <Details selectCoin={selectCoin} />} 
+                />
+                <Route path="/*" element={<Missing />} />
+            </Routes>
+            
+            <Footer />
+      </div>
     </BrowserRouter>
   )
 }

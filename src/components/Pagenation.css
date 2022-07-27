@@ -1,0 +1,11 @@
+.pager {
+    display: flex;
+    list-style: none;
+}
+
+.pager li {
+    width: 30px;
+    text-align: center;
+    line-height: 30px;
+    margin: 5px;
+}
